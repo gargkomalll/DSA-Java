@@ -1,0 +1,112 @@
+# 152. Maximum Product Subarray
+
+## Problem
+
+Given an integer array `nums`, find the contiguous subarray that has the largest product and return its product.
+
+---
+
+## Approach 1 - Brute Force
+
+Check every possible subarray.
+
+- Start from each index.
+- Calculate the product of every possible subarray.
+- Keep track of the maximum product.
+- Return the largest product found.
+
+Time Complexity: **O(n²)**
+
+Space Complexity: **O(1)**
+
+---
+
+## Approach 2 - Prefix and Suffix Product (Optimal)
+
+Instead of checking every subarray, traverse the array from both directions.
+
+For every index:
+
+- Maintain the product while moving from left to right.
+- Maintain another product while moving from right to left.
+- If any product becomes `0`, reset it to `1`.
+- Update the answer using the maximum of the current left product and right product.
+
+This works because the maximum product subarray may appear after excluding either the prefix or suffix when negative numbers are present.
+
+Time Complexity: **O(n)**
+
+Space Complexity: **O(1)**
+
+---
+
+## Example
+
+Input
+
+nums = [2, 3, -2, 4]
+
+Initially
+
+- Left Product = 1
+- Right Product = 1
+- Answer = 2
+
+Iteration 1:
+
+- Left Product = 2
+- Right Product = 4
+- Answer = 4
+
+Iteration 2:
+
+- Left Product = 6
+- Right Product = -8
+- Answer = 6
+
+Iteration 3:
+
+- Left Product = -12
+- Right Product = -24
+- Answer = 6
+
+Iteration 4:
+
+- Left Product = -48
+- Right Product = -48
+- Answer = 6
+
+Output
+
+6
+
+---
+
+## What I Learned
+
+- Product problems are different from sum problems because negative numbers can change the sign of the product.
+- Traversing from both left and right helps handle arrays containing negative numbers.
+- Resetting the product after encountering `0` allows starting a new subarray.
+- Prefix and Suffix Product is an efficient technique for this problem.
+
+---
+
+## Complexity
+
+| Approach | Time | Space |
+|----------|------|-------|
+| Brute Force | O(n²) | O(1) |
+| Prefix & Suffix Product | O(n) | O(1) |
+
+---
+
+## My Notes
+
+- Learned the Prefix and Suffix Product technique.
+- Traverse from both directions to handle negative numbers.
+- Reset the running product whenever it becomes zero.
+- Need to revise:
+  - Prefix Product
+  - Suffix Product
+  - Array Traversal
+  - Handling negative numbers
