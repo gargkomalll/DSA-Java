@@ -8,16 +8,37 @@ A permutation is any rearrangement of the characters of a string.
 
 ---
 
-## Approach - Fixed Size Sliding Window + Frequency Array
+## Approach 1 - Brute Force
 
-Since every permutation of `s1` has the **same length**, we maintain a sliding window of size `s1.length()` over `s2`.
+Generate all possible permutations of `s1` and check whether any permutation exists as a substring of `s2`.
+
+Steps:
+
+- Generate every permutation of `s1`.
+- For each permutation, search whether it exists in `s2`.
+- If any permutation is found, return `true`.
+- Otherwise, return `false`.
+
+Time Complexity: **O(m! × (n - m + 1) × m)**
+
+Space Complexity: **O(m)** (for recursion stack)
+
+> **Why not use this?**
+>
+> Generating all permutations becomes extremely expensive even for moderate string lengths. This approach exceeds time limits for larger inputs.
+
+---
+
+## Approach 2 - Fixed Size Sliding Window + Frequency Array (Optimal)
+
+Since every permutation of `s1` has the same length, maintain a sliding window of size `s1.length()` over `s2`.
 
 - Store the frequency of each character in `s1`.
 - Maintain another frequency array for the current window in `s2`.
 - Expand the window by moving the right pointer.
 - If the window size exceeds `s1.length()`, remove the leftmost character.
 - Whenever the window size becomes equal to `s1.length()`, compare both frequency arrays.
-- If they are identical, a permutation exists.
+- If both arrays are identical, a permutation exists.
 
 Time Complexity: **O(n)**
 
@@ -69,10 +90,11 @@ true
 
 ## What I Learned
 
-- Learned how to use a **Fixed Size Sliding Window**.
-- Understood that every permutation has the same length, so the window size never changes.
-- Used two frequency arrays to compare character frequencies efficiently.
-- Learned that comparing frequency arrays is easier than generating all permutations.
+- Learned the difference between **Fixed Size** and **Variable Size** Sliding Window.
+- Understood why generating all permutations is impractical.
+- Learned to compare character frequencies instead of generating permutations.
+- Practiced using two frequency arrays for efficient matching.
+- Used `Arrays.equals()` to compare two frequency arrays.
 
 ---
 
@@ -80,16 +102,18 @@ true
 
 | Approach | Time | Space |
 |----------|------|-------|
+| Brute Force (Generate All Permutations) | O(m! × (n - m + 1) × m) | O(m) |
 | Fixed Size Sliding Window + Frequency Array | O(n) | O(1) |
 
 ---
 
 ## My Notes
 
-- Pattern used: **Fixed Size Sliding Window**.
-- Used two pointers (`left` and `right`) to maintain the window.
+- Pattern Used: **Fixed Size Sliding Window**
+- Window size always remains equal to `s1.length()`.
+- Used two pointers (`left` and `right`) to slide the window.
 - Used two frequency arrays:
-  - `s1Freq[]` stores the frequency of characters in `s1`.
-  - `windowFreq[]` stores the frequency of characters in the current window of `s2`.
-- `Arrays.equals()` is used to compare both frequency arrays.
+  - `s1Freq[]` stores frequencies of characters in `s1`.
+  - `windowFreq[]` stores frequencies of characters in the current window.
+- Compared both arrays using `Arrays.equals()`.
 - Since the arrays have a fixed size of **26**, comparing them takes constant time.
